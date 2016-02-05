@@ -1,7 +1,7 @@
 /**
  * Copyright Zhiming Chen 2016
  */
-package com.zedmcchen.weblog.topusage;
+package com.zedmcchen.weblog.parsers.topusage;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,8 +16,8 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import com.zedmcchen.weblog.parser.LogEntry;
-import com.zedmcchen.weblog.utils.GzipFiles;
+import com.zedmcchen.weblog.parsers.parser.LogEntry;
+import com.zedmcchen.weblog.parsers.utils.GzipFiles;
 
 
 import static java.util.stream.Collectors.counting;

@@ -1,4 +1,4 @@
-package com.zedmcchen.weblog.utils;
+package com.zedmcchen.weblog.parsers.utils;
 
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;

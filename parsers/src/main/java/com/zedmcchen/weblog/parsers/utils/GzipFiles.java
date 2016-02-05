@@ -1,7 +1,7 @@
 /**
  * Copyright Zhiming Chen 2016
  */
-package com.zedmcchen.weblog.utils;
+package com.zedmcchen.weblog.parsers.utils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;

@@ -1,4 +1,4 @@
-package com.zedmcchen.weblog.utils;
+package com.zedmcchen.weblog.parsers.utils;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.is;

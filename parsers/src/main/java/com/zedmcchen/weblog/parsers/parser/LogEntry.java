@@ -1,7 +1,7 @@
 /**
  * Copyright Zhiming Chen 2016
  */
-package com.zedmcchen.weblog.parser;
+package com.zedmcchen.weblog.parsers.parser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
