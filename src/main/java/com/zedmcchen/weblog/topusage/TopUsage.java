@@ -1,7 +1,7 @@
 /**
  * Copyright Zhiming Chen 2016
  */
-package com.zedmcchen.weblog.analyser;
+package com.zedmcchen.weblog.topusage;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,7 +27,7 @@ import static java.util.stream.Collectors.groupingBy;;
  * @author zhiming
  *
  */
-public class LogAnalyser {
+public class TopUsage {
 	public static void main(String[] args) {
 		
 		long maxSize = 10L;
