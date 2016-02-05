@@ -11,8 +11,10 @@ import java.time.format.DateTimeFormatter;
  *
  */
 public class LogRecord {
-    private String  userIp;
-    private long    epochSeconds;
+	private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss XX");
+
+	private String  userIp;
+    private ZonedDateTime    dateTime;
     private String  requestMethod;
     private String  requestURL;
     private int     statusCode;
@@ -26,9 +28,18 @@ public class LogRecord {
 	public String getUserIp() {
 		return userIp;
 	}
-	public long getEpochSeconds() {
-		return epochSeconds;
+	public ZonedDateTime getDateTime() {
+		return dateTime;
 	}
+	
+	public String getDate () {
+		return dateTime.toLocalDate().toString();
+	}
+	
+	public String getDay() {
+		return dateTime.getDayOfWeek().toString();
+	}
+	
 	public String getRequestMethod() {
 		return requestMethod;
 	}
@@ -54,20 +65,18 @@ public class LogRecord {
 		return cookies.getCookie(name);
 	}
     
-	private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss XX");
     public static LogRecord parse(LogEntry logEntry) {
     	
     	LogRecord logRecord = new LogRecord();
         logRecord.userIp = logEntry.getUserIp();
 
-        ZonedDateTime zonedDateTime = ZonedDateTime.parse(logEntry.getDateAndTime(), dateTimeFormatter);
-        logRecord.epochSeconds = zonedDateTime.toEpochSecond();
+        logRecord.dateTime = ZonedDateTime.parse(logEntry.getDateAndTime(), dateTimeFormatter);
         
         String[] substr = logEntry.getRequest().split("\\s+");
         logRecord.requestMethod = substr[0];
         logRecord.requestURL = substr[1];
         
-        logRecord.statusCode = Integer.parseInt(logEntry.getStatusCode());
+        logRecord.statusCode = Integer.parseInt(logEntry.getStatus());
         logRecord.contentLength = Integer.parseInt(logEntry.getContentLength());
         
         logRecord.referer = logEntry.getReferer();

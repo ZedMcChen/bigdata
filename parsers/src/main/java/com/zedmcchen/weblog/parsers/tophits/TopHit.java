@@ -49,14 +49,65 @@ public class TopHit {
 				topHits = findTopHits(logFile, LogEntry::getReferer, (l) -> !l.equals("-"), topHitCount);
 				break;
 				
+			case DATE:
+				topHits = findTopHitsInRecord(logFile, LogRecord::getDate, topHitCount);
+				break;
+				
+			case DAY:
+				topHits = findTopHitsInRecord(logFile, LogRecord::getDay, topHitCount);
+				break;
+				
+			case STATUS:
+				topHits = findTopHits(logFile, LogEntry::getStatus, topHitCount);
+				break;
+				
+			case COOKIE_TOKEN:
+				topHits = findTopHitsInRecord(logFile, log -> log.getCookie(cliParser.getCookieToken()), (l) -> l != null, topHitCount);
+				break;
+				
 			default:
 				System.err.println("Unrecognised hit dimension \"" + hitDimension + "\" requested");
 				System.exit(-1);
 		}
-		if (topHits != null)
-		    System.out.println(topHits);
+		if (topHits != null) {
+			topHits.forEach(e -> System.out.println(e.getValue() + ": " + e.getKey()));
+		}
 	}
 
+	private static List<Entry<String, Long>> findTopHitsInRecord(String logFile, Function<? super LogRecord, String> mapper, 
+																 Predicate<? super String> predicate, int topHitCount) {
+		return GzipFiles.lines(Paths.get(logFile))
+		.parallel()
+		.map(LogEntry::parse)
+		.filter(LogEntry::isGood)
+		.map(LogRecord::parse)
+		.map(mapper)
+		.filter(predicate)
+		.collect(groupingBy(Function.identity(), counting()))
+		.entrySet()
+		.stream()
+		.sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
+		.limit(topHitCount)
+		.collect(Collectors.toList());
+	}
+
+	
+	private static List<Entry<String, Long>> findTopHitsInRecord(String logFile, Function<? super LogRecord, String> mapper, int topHitCount) {
+		return GzipFiles.lines(Paths.get(logFile))
+		.parallel()
+		.map(LogEntry::parse)
+		.filter(LogEntry::isGood)
+		.map(LogRecord::parse)
+		.map(mapper)
+		.collect(groupingBy(Function.identity(), counting()))
+		.entrySet()
+		.stream()
+		.sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
+		.limit(topHitCount)
+		.collect(Collectors.toList());
+	}
+
+	
 	private static List<Entry<String, Long>> findTopHits(String logFile, Function<? super LogEntry, String> mapper, int topHitCount) {
 		return GzipFiles.lines(Paths.get(logFile))
 		.parallel()

@@ -23,7 +23,7 @@ public class LogEntryTest {
 		assertThat(logEntry.getUserIp(), is("198.50.157.18"));
 		assertThat(logEntry.getDateAndTime(), is("09/Jul/2013:01:59:59 -0400"));
 		assertThat(logEntry.getRequest(), is("GET /store/10.1002/div.3783/asset/3783_ftp.pdf HTTP/1.1"));
-		assertThat(logEntry.getStatusCode(), is("200"));
+		assertThat(logEntry.getStatus(), is("200"));
 		assertThat(logEntry.getContentLength(), is("38057"));
 		assertThat(logEntry.getReferer(), is("http://google.com/search"));
 		assertThat(logEntry.getUserAgent(), is("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0"));

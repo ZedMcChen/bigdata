@@ -14,7 +14,7 @@ public class LogEntry {
 	    private String userIp;
 	    private String dateAndTime;
 	    private String request;
-	    private String statusCode;
+	    private String status;
 	    private String contentLength;
 	    private String referer;
 	    private String userAgent;
@@ -36,8 +36,8 @@ public class LogEntry {
 			return this.request;
 		}
 
-		public String getStatusCode() {
-			return this.statusCode;
+		public String getStatus() {
+			return this.status;
 		}
 
 		public String getContentLength() {
@@ -72,7 +72,7 @@ public class LogEntry {
     		entry.userIp = matcher.group(1);
     		entry.dateAndTime = matcher.group(4);
     		entry.request = matcher.group(5);
-    		entry.statusCode = matcher.group(6);
+    		entry.status = matcher.group(6);
     		entry.contentLength = matcher.group(7);
     		entry.referer = matcher.group(8);
     		entry.userAgent = matcher.group(9);
