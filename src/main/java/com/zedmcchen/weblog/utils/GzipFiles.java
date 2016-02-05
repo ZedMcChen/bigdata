@@ -9,7 +9,6 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
@@ -20,7 +19,7 @@ import java.util.zip.GZIPInputStream;
  *
  */
 public class GzipFiles {
-	private static int BUFFER_SIZE = 1;
+	private static int BUFFER_SIZE = 8 * 1024;
     public static Stream<String> lines(Path path) {
 		InputStream inputStream = null;
 		BufferedInputStream bufferedInputStream = null;
@@ -28,7 +27,7 @@ public class GzipFiles {
 
 		try {
 			inputStream = Files.newInputStream(path);
-    		bufferedInputStream = new BufferedInputStream(inputStream, 1);
+    		bufferedInputStream = new BufferedInputStream(inputStream, BUFFER_SIZE);
     		gzipInputStream = new GZIPInputStream(bufferedInputStream);
 		}
 		catch (IOException e) {
