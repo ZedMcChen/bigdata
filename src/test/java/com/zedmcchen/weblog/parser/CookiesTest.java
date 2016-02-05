@@ -1,4 +1,4 @@
-package com.zedmcchen.weblog.utils;
+package com.zedmcchen.weblog.parser;
 
 import org.junit.Test;
 

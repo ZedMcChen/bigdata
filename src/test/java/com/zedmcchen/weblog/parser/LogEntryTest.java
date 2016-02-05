@@ -1,4 +1,4 @@
-package com.zedmcchen.weblog.utils;
+package com.zedmcchen.weblog.parser;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -7,6 +7,8 @@ import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.Test;
+
+import com.zedmcchen.weblog.utils.GzipFiles;
 
 public class LogEntryTest {
 

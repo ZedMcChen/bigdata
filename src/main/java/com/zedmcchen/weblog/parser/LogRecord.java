@@ -1,9 +1,8 @@
 /**
  * Copyright Zhiming Chen 2016
  */
-package com.zedmcchen.weblog.utils;
+package com.zedmcchen.weblog.parser;
 
-import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
