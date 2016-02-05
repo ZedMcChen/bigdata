@@ -15,9 +15,9 @@ import org.apache.commons.cli.ParseException;
  *
  */
 public class CliParser {
-	private String defaultDimension = "ip";
-	private String    defaultCount = "10";
-	private CommandLine line = null;
+	private HitDimension hitDimension = HitDimension.USER_IP;
+	private int topHitCount = 10;
+	private String[] targets;
 	
 	public CliParser(String[] args) {
 		Options options = new Options();
@@ -28,23 +28,35 @@ public class CliParser {
 		CommandLineParser parser = new DefaultParser();
 		
 		try {
-			line = parser.parse(options, args);
-		} catch (ParseException e) {
+			CommandLine line = parser.parse(options, args);
+			
+			if (line.hasOption("d")) {
+				String dimension = line.getOptionValue("d");
+				this.hitDimension = HitDimension.valueOf(dimension);
+			}
+			
+			if (line.hasOption("c")) {
+				String countStr = line.getOptionValue("c");
+				this.topHitCount = Integer.parseInt(countStr);
+			}
+			
+			this.targets = line.getArgs();
+		} catch (ParseException | IllegalArgumentException | NullPointerException e) {
 			HelpFormatter formatter = new HelpFormatter();
 			formatter.printHelp(this.getClass().getName() + " [options] [gzipped log file]\n Options:", options);
 			throw new IllegalArgumentException(e);
 		}
 	}
 	
-	public String getDimension() {
-		return line.getOptionValue("d", defaultDimension);
+	public HitDimension getHitDimension() {
+		return this.hitDimension;
 	}
 
-	public int getCount() {
-		return Integer.parseInt(line.getOptionValue("c", defaultCount));
+	public int getTopHitCount() {
+		return this.topHitCount;
 	}
 	
 	public String[] getTargets() {
-		return line.getArgs();
+		return this.targets;
 	}
 }
