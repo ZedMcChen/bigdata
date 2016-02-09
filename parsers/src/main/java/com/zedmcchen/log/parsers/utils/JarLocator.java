@@ -1,7 +1,7 @@
 /**
  * Copyright Zhiming Chen 2016
  */
-package com.zedmcchen.weblog.parsers.utils;
+package com.zedmcchen.log.parsers.utils;
 
 import org.apache.commons.io.FilenameUtils;
 

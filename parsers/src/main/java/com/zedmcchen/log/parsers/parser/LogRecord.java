@@ -1,11 +1,10 @@
 /**
  * Copyright Zhiming Chen 2016
  */
-package com.zedmcchen.weblog.parsers.parser;
+package com.zedmcchen.log.parsers.parser;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
 /**
  * @author zhiming

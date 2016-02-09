@@ -1,12 +1,10 @@
 /**
  * Copyright Zhiming Chen 2016
  */
-package com.zedmcchen.weblog.parsers.parser;
+package com.zedmcchen.log.parsers.parser;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
-
 import static java.net.URLDecoder.decode;
 
 import java.io.UnsupportedEncodingException;

@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.zedmcchen.weblog</groupId>
+        <groupId>com.zedmcchen.log</groupId>
         <artifactId>parent</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
@@ -11,7 +11,7 @@
     <artifactId>parsers</artifactId>
     <packaging>jar</packaging>
 
-    <name>web log analyser: parser</name>
+    <name>log analyser: parser</name>
 
     <dependencies>
         <dependency>
@@ -42,7 +42,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.zedmcchen.weblog.parsers.tophits.TopHit</mainClass>
+                            <mainClass>com.zedmcchen.log.parsers.tophits.TopHit</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
