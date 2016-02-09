@@ -1,4 +1,4 @@
-package com.zedmcchen.log.parsers.parser;
+package com.zhimingchen.log.parsers.parser;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.Test;
 
-import com.zedmcchen.log.parsers.utils.GzipFiles;
+import com.zhimingchen.log.parsers.utils.GzipFiles;
 
 public class LogEntryTest {
 

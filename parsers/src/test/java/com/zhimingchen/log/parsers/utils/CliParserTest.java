@@ -1,4 +1,4 @@
-package com.zedmcchen.log.parsers.utils;
+package com.zhimingchen.log.parsers.utils;
 
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;

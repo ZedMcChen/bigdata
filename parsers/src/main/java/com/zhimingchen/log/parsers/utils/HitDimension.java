@@ -1,7 +1,7 @@
 /**
  * Copyright Zhiming Chen 2016
  */
-package com.zedmcchen.log.parsers.utils;
+package com.zhimingchen.log.parsers.utils;
 
 /**
  * @author zhiming

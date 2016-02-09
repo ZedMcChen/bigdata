@@ -1,7 +1,7 @@
 /**
  * Copyright Zhiming Chen 2016
  */
-package com.zedmcchen.log.parsers.parser;
+package com.zhimingchen.log.parsers.parser;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;

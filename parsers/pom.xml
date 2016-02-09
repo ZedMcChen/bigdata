@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.zedmcchen.log</groupId>
+        <groupId>com.zhimingchen.log</groupId>
         <artifactId>parent</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
@@ -42,7 +42,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.zedmcchen.log.parsers.tophits.TopHit</mainClass>
+                            <mainClass>com.zhimingchen.log.parsers.tophits.TopHit</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -1,7 +1,7 @@
 /**
  * Copyright Zhiming Chen 2016
  */
-package com.zedmcchen.log.parsers.tophits;
+package com.zhimingchen.log.parsers.tophits;
 
 import java.nio.file.Paths;
 import java.util.List;
@@ -10,11 +10,11 @@ import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import com.zedmcchen.log.parsers.parser.LogEntry;
-import com.zedmcchen.log.parsers.parser.LogRecord;
-import com.zedmcchen.log.parsers.utils.CliParser;
-import com.zedmcchen.log.parsers.utils.GzipFiles;
-import com.zedmcchen.log.parsers.utils.HitDimension;
+import com.zhimingchen.log.parsers.parser.LogEntry;
+import com.zhimingchen.log.parsers.parser.LogRecord;
+import com.zhimingchen.log.parsers.utils.CliParser;
+import com.zhimingchen.log.parsers.utils.GzipFiles;
+import com.zhimingchen.log.parsers.utils.HitDimension;
 
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;;
