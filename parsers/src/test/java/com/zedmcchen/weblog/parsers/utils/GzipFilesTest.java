@@ -13,16 +13,16 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 public class GzipFilesTest {
-	
-	@Test
-	public void shouldCreateStringStreamFromGzipFile() throws URISyntaxException {
-		String filename = "testdata/text.txt.gz";
-		Path path = Paths.get(ClassLoader.getSystemResource(filename).toURI());
-		
-		long lineCount = GzipFiles.lines(path).count();
-		assertThat(lineCount, is(5L));
-		
-		List<String> texts = GzipFiles.lines(path).collect(Collectors.toList());
-		assertThat(texts, is(Arrays.asList("this", "is", "a", "test", "file")));
-	}
+    
+    @Test
+    public void shouldCreateStringStreamFromGzipFile() throws URISyntaxException {
+        String filename = "testdata/text.txt.gz";
+        Path path = Paths.get(ClassLoader.getSystemResource(filename).toURI());
+        
+        long lineCount = GzipFiles.lines(path).count();
+        assertThat(lineCount, is(5L));
+        
+        List<String> texts = GzipFiles.lines(path).collect(Collectors.toList());
+        assertThat(texts, is(Arrays.asList("this", "is", "a", "test", "file")));
+    }
 }

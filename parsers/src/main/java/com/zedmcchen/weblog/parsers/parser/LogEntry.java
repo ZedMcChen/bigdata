@@ -11,78 +11,103 @@ import java.util.regex.Pattern;
  *
  */
 public class LogEntry {
-	    private String userIp;
-	    private String dateAndTime;
-	    private String request;
-	    private String status;
-	    private String contentLength;
-	    private String referer;
-	    private String userAgent;
-	    private String cookieString;
-	    
-	    private boolean good;
-	    
-	    private LogEntry() {}
-	    
-		public String getUserIp() {
-			return this.userIp;
-		}
+    private String userIp;
+    private String remoteLogname;
+    private String remoteUser;
+    private String dateTimeString;
+    private String requestMethod;
+    private String requestUrl;
+    private String protocolVersion;
+    private String responseStatus;
+    private String byteCount;
+    private String refererUrl;
+    private String userAgent;
 
-		public String getDateAndTime() {
-			return this.dateAndTime;
-		}
+    private String cookieString;
 
-		public String getRequest() {
-			return this.request;
-		}
+    private boolean good;
 
-		public String getStatus() {
-			return this.status;
-		}
+    protected LogEntry() {}
 
-		public String getContentLength() {
-			return this.contentLength;
-		}
+    public String getUserIp() {
+        return this.userIp;
+    }
 
-		public String getReferer() {
-			return this.referer;
-		}
+    public String getDateTimeString() {
+        return this.dateTimeString;
+    }
 
-		public String getUserAgent() {
-			return this.userAgent;
-		}
+    public String getRequestMethod() {
+        return this.requestMethod;
+    }
 
-		public String getCookieString() {
-			return this.cookieString;
-		}
+    public String getRequestUrl() {
+        return this.requestUrl;
+    }
 
-		public boolean isGood() {
-			return good;
-		}
+    public String getProtocolVersion() {
+        return this.protocolVersion;
+    }
 
-		// ip         -      -       [datetime -offset]              "request" code    length  "referrer"  "browser     "cookies"   other stuff
-        private static String logEntryPattern = "^([\\d.]+) (\\S+) (\\S+) \\[([\\w:/]+\\s[+\\-]\\d{4})\\] \"(.+?)\" (\\d{3}) (\\d+) \"([^\"]+)\" \"([^\"]+)\" \"([^\"]+)\".*?";
+    public String getResponseStatus() {
+        return this.responseStatus;
+    }
 
-        private static Pattern pattern = Pattern.compile(logEntryPattern);
+    public String getByteCount() {
+        return this.byteCount;
+    }
+
+    public String getRefererUrl() {
+        return this.refererUrl;
+    }
+
+    public String getUserAgent() {
+        return this.userAgent;
+    }
+
+    public String getCookieString() {
+        return this.cookieString;
+    }
+
+    public boolean isGood() {
+        return good;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s %s [%s] \"%s %s %s\" %s %s \"%s\" \"%s\" \"%s\"",
+                this.userIp, this.remoteLogname, this.remoteUser, this.dateTimeString, 
+                this.requestMethod, this.requestUrl, this.protocolVersion, this.responseStatus, this.byteCount,
+                this.refererUrl, this.userAgent, this.cookieString);
+    }
+
+    // ip         -      -       [datetime -offset]              "request"                        code    length  "referrer"  "browser     "cookies"   other stuff
+    private static String logEntryPattern = "^([\\d.]+) (\\S+) (\\S+) \\[([\\w:/]+\\s[+\\-]\\d{4})\\] \"([^ \"]+) ([^ \"]+) ([^ \"]+)\" (\\d{3}) (\\d+) \"([^\"]+)\" \"([^\"]+)\" \"([^\"]+)\".*?";
+
+    private static Pattern pattern = Pattern.compile(logEntryPattern);
 
     public static LogEntry parse(String line) {
-    	Matcher matcher = pattern.matcher(line.replace("\\\"", ""));
-    	LogEntry entry = new LogEntry();
-    	if (matcher.matches()) {
-    		entry.userIp = matcher.group(1);
-    		entry.dateAndTime = matcher.group(4);
-    		entry.request = matcher.group(5);
-    		entry.status = matcher.group(6);
-    		entry.contentLength = matcher.group(7);
-    		entry.referer = matcher.group(8);
-    		entry.userAgent = matcher.group(9);
-    		entry.cookieString = matcher.group(10);
-    		entry.good = true;
+        Matcher matcher = pattern.matcher(line.replace("\\\"", ""));
+        LogEntry entry = new LogEntry();
+        if (matcher.matches()) {
+            entry.userIp = matcher.group(1);
+            entry.remoteLogname = matcher.group(2);
+            entry.remoteUser = matcher.group(3);
+            entry.dateTimeString = matcher.group(4);
+            entry.requestMethod = matcher.group(5);
+            entry.requestUrl = matcher.group(6);
+            entry.protocolVersion = matcher.group(7);
+            entry.responseStatus = matcher.group(8);
+            entry.byteCount = matcher.group(9);
+            entry.refererUrl = matcher.group(10);
+            entry.userAgent = matcher.group(11);
+            entry.cookieString = matcher.group(12);
+            entry.good = true;
 
-    	} else {
-    		entry.good = false;
-    	}
-    	return entry;
+        } else {
+            entry.good = false;
+        }
+        return entry;
     }
 }
 

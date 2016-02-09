@@ -5,84 +5,124 @@ package com.zedmcchen.weblog.parsers.parser;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 /**
  * @author zhiming
  *
  */
-public class LogRecord {
-	private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss XX");
+public class LogRecord extends LogEntry {
+    private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss XX");
 
-	private String  userIp;
-    private ZonedDateTime    dateTime;
-    private String  requestMethod;
-    private String  requestURL;
-    private int     statusCode;
-    private int     contentLength;
-    private String  referer;
-    private String  userAgent;
-    private Cookies cookies;
+    private LogEntry         logEntry;
+    private ZonedDateTime    zonedDateTime;
+    private int              contentLength;
+    private Cookies          cookies;
 
-    private LogRecord() {}
+    protected LogRecord() {}
     
-	public String getUserIp() {
-		return userIp;
-	}
-	public ZonedDateTime getDateTime() {
-		return dateTime;
-	}
-	
-	public String getDate () {
-		return dateTime.toLocalDate().toString();
-	}
-	
-	public String getDay() {
-		return dateTime.getDayOfWeek().toString();
-	}
-	
-	public String getRequestMethod() {
-		return requestMethod;
-	}
-	public String getRequestURL() {
-		return requestURL;
-	}
-	public int getStatusCode() {
-		return statusCode;
-	}
-	public int getContentLength() {
-		return contentLength;
-	}
-	public String getReferer() {
-		return referer;
-	}
-	public String getUserAgent() {
-		return userAgent;
-	}
-	public Cookies getCookies() {
-		return cookies;
-	}
-	public String getCookie(String name) {
-		return cookies.getCookie(name);
-	}
+    public ZonedDateTime getZonedDateTime() {
+        return this.zonedDateTime;
+    }
     
+    public String getDate () {
+        return this.zonedDateTime.toLocalDate().toString();
+    }
+    
+    public String getDay() {
+        return this.zonedDateTime.getDayOfWeek().toString();
+    }
+    
+    public int getContentLength() {
+        return this.contentLength;
+    }
+    
+    public Cookies getCookies() {
+        return this.cookies;
+    }
+    public String getCookie(String name) {
+        return cookies.getCookie(name);
+    }
+    
+    @Override
+    public String getUserIp() {
+        return this.logEntry.getUserIp();
+    }
+
+    @Override
+    public String getDateTimeString() {
+        return this.logEntry.getDateTimeString();
+    }
+
+    @Override
+    public String getRequestMethod() {
+        return this.logEntry.getRequestMethod();
+    }
+
+    @Override
+    public String getRequestUrl() {
+        return this.logEntry.getRequestUrl();
+    }
+
+    @Override
+    public String getProtocolVersion() {
+        return this.logEntry.getProtocolVersion();
+    }
+
+    @Override
+    public String getResponseStatus() {
+        return this.logEntry.getResponseStatus();
+    }
+
+    @Override
+    public String getByteCount() {
+        return this.logEntry.getByteCount();
+    }
+
+    @Override
+    public String getRefererUrl() {
+        return this.logEntry.getRefererUrl();
+    }
+
+    @Override
+    public String getUserAgent() {
+        return this.logEntry.getUserAgent();
+    }
+
+    @Override
+    public String getCookieString() {
+        return this.logEntry.getCookieString();
+    }
+
+    @Override
+    public boolean isGood() {
+        return this.logEntry.isGood();
+    }
+    
+    @Override
+    public String toString() {
+        return this.logEntry.toString();
+    }
+
     public static LogRecord parse(LogEntry logEntry) {
-    	
-    	LogRecord logRecord = new LogRecord();
-        logRecord.userIp = logEntry.getUserIp();
+        
+        LogRecord logRecord = new LogRecord();
+        logRecord.logEntry = logEntry;
+        
+        if (logEntry.isGood()) {
+            logRecord.zonedDateTime = ZonedDateTime.parse(logRecord.getDateTimeString(), dateTimeFormatter);
+            logRecord.contentLength = Integer.parseInt(logRecord.getByteCount());
+            logRecord.cookies = Cookies.parse(logRecord.getCookieString());
+        }
+        
+        return logRecord;
+    }
 
-        logRecord.dateTime = ZonedDateTime.parse(logEntry.getDateAndTime(), dateTimeFormatter);
+    public static LogRecord parse(String logLine) {
         
-        String[] substr = logEntry.getRequest().split("\\s+");
-        logRecord.requestMethod = substr[0];
-        logRecord.requestURL = substr[1];
+        LogEntry logEntry = LogEntry.parse(logLine);
+        LogRecord logRecord = LogRecord.parse(logEntry);
         
-        logRecord.statusCode = Integer.parseInt(logEntry.getStatus());
-        logRecord.contentLength = Integer.parseInt(logEntry.getContentLength());
-        
-        logRecord.referer = logEntry.getReferer();
-        logRecord.userAgent = logEntry.getUserAgent();
-        
-        logRecord.cookies = Cookies.parse(logEntry.getCookieString());
         return logRecord;
     }
 }
