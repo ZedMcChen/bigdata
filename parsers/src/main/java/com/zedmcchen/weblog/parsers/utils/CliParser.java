@@ -22,12 +22,12 @@ public class CliParser {
     
     public CliParser(String[] args) {
         Options options = new Options();
-        options.addOption("h", "help", false, "show this help message");
         options.addOption("c", "count", true, "the number of result entries to display [default: 10]");
         options.addOption("d", "dimension", true, "the usage dimension to analyse, one of " 
-                                               + "USER_IP, DATE, DAY, REQUEST_URL, REFERER, STATUS, PAGE_SIZE, COOKIE_TOKEN " 
+                                               + "USER_IP, DATE, DAY, REQUEST_URL, REFERER_URL, RESPONSE_STATUS, BYTE_COUNT, COOKIE_TOKEN " 
                                                + " [default: USER_IP]");
         options.addOption("t", "token", true, "the cookie token to analyse [default: JSESSIONID]");
+        options.addOption("h", "help", false, "show this help message");
 
         CommandLineParser parser = new DefaultParser();
         
@@ -49,10 +49,15 @@ public class CliParser {
             }
             
             this.targets = line.getArgs();
+            
+            if (this.targets.length < 1) {
+                throw new IllegalArgumentException("Not log file specified");
+            }
         } catch (ParseException | IllegalArgumentException | NullPointerException e) {
             HelpFormatter formatter = new HelpFormatter();
-            formatter.setWidth(80);
-            formatter.printHelp(this.getClass().getName() + " [options] [gzipped log file]\n Options:", options);
+            formatter.setWidth(100);
+            String jarName = JarLocator.findJar(this.getClass());
+            formatter.printHelp("java -jar " + jarName + " [options] <gzipped log file>\n Options:", options);
             throw new IllegalArgumentException(e);
         }
     }

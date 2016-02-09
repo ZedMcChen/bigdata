@@ -8,5 +8,5 @@ package com.zedmcchen.weblog.parsers.utils;
  *
  */
 public enum HitDimension {
-    USER_IP, DATE, DAY, REQUEST_URL, REFERER, STATUS, PAGE_SIZE, COOKIE_TOKEN
+    USER_IP, DATE, DAY, REQUEST_URL, REFERER_URL, RESPONSE_STATUS, BYTE_COUNT, COOKIE_TOKEN
 }
