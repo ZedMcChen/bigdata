@@ -1,4 +1,3 @@
-Copyright Zhiming Chen 2016
 
 This repo contains java programs for log analysis. 
 The current implementation is for Apache extended logs.
