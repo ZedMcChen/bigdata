@@ -6,6 +6,9 @@ package com.zhimingchen.log.parsers.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 /**
  * @author zhiming
  *
@@ -95,6 +98,53 @@ public class LogEntry {
         return good;
     }
 
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .append(this.good)
+                .append(this.userIp)
+                .append(this.remoteLogname)
+                .append(this.remoteUser)
+                .append(this.dateTimeString)
+                .append(this.requestMethod)
+                .append(this.requestUrl)
+                .append(this.protocolVersion)
+                .append(this.responseStatus)
+                .append(this.byteCount)
+                .append(this.refererUrl)
+                .append(this.userAgent)
+                .append(this.cookieString)
+                .toHashCode();
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof LogEntry) {
+            LogEntry l = (LogEntry) o;
+            if (this == l) {
+                return true;
+            }
+            
+            return new EqualsBuilder()
+                        .append(this.good, l.good)
+                        .append(this.userIp, l.userIp)
+                        .append(this.remoteLogname, l.remoteLogname)
+                        .append(this.remoteUser, l.remoteUser)
+                        .append(this.dateTimeString, l.dateTimeString)
+                        .append(this.requestMethod, l.requestMethod)
+                        .append(this.requestUrl, l.requestUrl)
+                        .append(this.protocolVersion, l.protocolVersion)
+                        .append(this.responseStatus, l.responseStatus)
+                        .append(this.byteCount, l.byteCount)
+                        .append(this.refererUrl, l.refererUrl)
+                        .append(this.userAgent, l.userAgent)
+                        .append(this.cookieString, l.cookieString)
+                        .isEquals();
+        }
+        
+        return false;
+    }
+    
     @Override
     public String toString() {
         return String.format("%s %s %s [%s] \"%s %s %s\" %s %s \"%s\" \"%s\" \"%s\"",

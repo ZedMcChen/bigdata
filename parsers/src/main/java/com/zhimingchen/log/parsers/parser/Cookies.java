@@ -36,6 +36,20 @@ public class Cookies {
         return cookieMap.toString();
     }
     
+    @Override 
+    public int hashCode() {
+        return 1 + cookieMap.hashCode();
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Cookies) {
+            Cookies cookies = (Cookies) o;
+            return cookieMap.equals(cookies.cookieMap);
+        }
+        return false;
+    }
+    
     public static Cookies parse(String cookieString) {
         Cookies cookies = new Cookies();
         for (String aCookie: cookieString.split(";\\s+")) {

@@ -48,6 +48,10 @@ public class LogRecord extends LogEntry {
         return this.zonedDateTime;
     }
     
+    public long getEpochSeconds() {
+        return this.zonedDateTime.toEpochSecond();
+    }
+    
     public String getDate () {
         return this.zonedDateTime.toLocalDate().toString();
     }
@@ -67,7 +71,7 @@ public class LogRecord extends LogEntry {
         return cookies.getCookie(name);
     }
     
-    private void processLogEntry() {
+    protected void processLogEntry() {
         if (this.isGood()) {
             this.zonedDateTime = ZonedDateTime.parse(this.getDateTimeString(), dateTimeFormatter);
             this.contentLength = Integer.parseInt(this.getByteCount());
