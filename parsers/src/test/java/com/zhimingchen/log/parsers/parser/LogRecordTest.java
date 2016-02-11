@@ -7,14 +7,27 @@ import static org.junit.Assert.*;
 
 public class LogRecordTest {
 
+    private final String logLine = "198.50.157.18 - - [09/Jul/2013:22:59:59 -0400] \"GET /store/10.1002/div.3783/asset/3783_ftp.pdf HTTP/1.1\" "
+            + "200 38057 \"http://google.com/search\" \"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0\" "
+            + "\"JSESSIONID=sessionID; utc=data\"";
+    
+    @Test
+    public void shouldCreateLogRecordFromLogEntry() {
+        LogEntry logEntry = LogEntry.parse(logLine);
+        
+        LogRecord logRecord = LogRecord.parse(logEntry);
+        
+        checkLogRecord(logRecord);
+    }
+
     @Test
     public void shouldCreateLogRecordFromString() {
-        String logLine = "198.50.157.18 - - [09/Jul/2013:22:59:59 -0400] \"GET /store/10.1002/div.3783/asset/3783_ftp.pdf HTTP/1.1\" "
-                       + "200 38057 \"http://google.com/search\" \"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0\" "
-                       + "\"JSESSIONID=sessionID; utc=data\"";
-        
         LogRecord logRecord = LogRecord.parse(logLine);
         
+        checkLogRecord(logRecord);
+    }
+
+    private void checkLogRecord(LogRecord logRecord) {
         assertTrue(logRecord.isGood());
         assertThat(logRecord.getUserIp(), is("198.50.157.18"));
         assertThat(logRecord.getDateTimeString(), is("09/Jul/2013:22:59:59 -0400"));

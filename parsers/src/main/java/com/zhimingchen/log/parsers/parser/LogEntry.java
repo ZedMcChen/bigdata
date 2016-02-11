@@ -11,24 +11,46 @@ import java.util.regex.Pattern;
  *
  */
 public class LogEntry {
-    private String userIp;
-    private String remoteLogname;
-    private String remoteUser;
-    private String dateTimeString;
-    private String requestMethod;
-    private String requestUrl;
-    private String protocolVersion;
-    private String responseStatus;
-    private String byteCount;
-    private String refererUrl;
-    private String userAgent;
+    protected String userIp;
+    protected String remoteLogname;
+    protected String remoteUser;
+    protected String dateTimeString;
+    protected String requestMethod;
+    protected String requestUrl;
+    protected String protocolVersion;
+    protected String responseStatus;
+    protected String byteCount;
+    protected String refererUrl;
+    protected String userAgent;
 
-    private String cookieString;
+    protected String cookieString;
 
-    private boolean good;
+    protected boolean good;
 
     protected LogEntry() {}
 
+    protected LogEntry(String line) {
+        Matcher matcher = pattern.matcher(line.replace("\\\"", ""));
+        if (matcher.matches()) {
+            this.userIp = matcher.group(1);
+            this.remoteLogname = matcher.group(2);
+            this.remoteUser = matcher.group(3);
+            this.dateTimeString = matcher.group(4);
+            this.requestMethod = matcher.group(5);
+            this.requestUrl = matcher.group(6);
+            this.protocolVersion = matcher.group(7);
+            this.responseStatus = matcher.group(8);
+            this.byteCount = matcher.group(9);
+            this.refererUrl = matcher.group(10);
+            this.userAgent = matcher.group(11);
+            this.cookieString = matcher.group(12);
+            this.good = true;
+
+        } else {
+            this.good = false;
+        }
+    }
+    
     public String getUserIp() {
         return this.userIp;
     }
@@ -81,33 +103,12 @@ public class LogEntry {
                 this.refererUrl, this.userAgent, this.cookieString);
     }
 
-    // ip         -      -       [datetime -offset]              "request"                        code    length  "referrer"  "browser     "cookies"   other stuff
     private static String logEntryPattern = "^([\\d.]+) (\\S+) (\\S+) \\[([\\w:/]+\\s[+\\-]\\d{4})\\] \"([^ \"]+) ([^ \"]+) ([^ \"]+)\" (\\d{3}) (\\d+) \"([^\"]+)\" \"([^\"]+)\" \"([^\"]+)\".*?";
 
     private static Pattern pattern = Pattern.compile(logEntryPattern);
 
     public static LogEntry parse(String line) {
-        Matcher matcher = pattern.matcher(line.replace("\\\"", ""));
-        LogEntry entry = new LogEntry();
-        if (matcher.matches()) {
-            entry.userIp = matcher.group(1);
-            entry.remoteLogname = matcher.group(2);
-            entry.remoteUser = matcher.group(3);
-            entry.dateTimeString = matcher.group(4);
-            entry.requestMethod = matcher.group(5);
-            entry.requestUrl = matcher.group(6);
-            entry.protocolVersion = matcher.group(7);
-            entry.responseStatus = matcher.group(8);
-            entry.byteCount = matcher.group(9);
-            entry.refererUrl = matcher.group(10);
-            entry.userAgent = matcher.group(11);
-            entry.cookieString = matcher.group(12);
-            entry.good = true;
-
-        } else {
-            entry.good = false;
-        }
-        return entry;
+        return new LogEntry(line);
     }
 }
 
