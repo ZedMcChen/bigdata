@@ -1,7 +1,7 @@
 /**
  * Copyright Zhiming Chen 2016
  */
-package com.zhimingchen.log.hadoop.counterusage;
+package com.zhimingchen.counter.deduplicate;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
@@ -14,13 +14,13 @@ import org.apache.hadoop.util.GenericOptionsParser;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import com.zhimingchen.log.hadoop.parser.WritableLogRecord;
+import com.zhimingchen.counter.parser.WritableLogRecord;
 
 /**
  * @author zhiming
  *
  */
-public class CounterLogRecordParser extends Configured implements Tool {
+public class LogRecordParser extends Configured implements Tool {
 
     @Override
     public int run(String[] args) throws Exception {
@@ -32,10 +32,10 @@ public class CounterLogRecordParser extends Configured implements Tool {
         job.setJobName("Counter log parser");
         job.setJarByClass(getClass());
         
-        job.setMapperClass(CounterLogRecordMapper.class);
-        job.setReducerClass(CounterLogRecordReducer.class);
+        job.setMapperClass(LogRecordMapper.class);
+        job.setReducerClass(LogRecordReducer.class);
         
-        job.setPartitionerClass(CounterLogRecordPartitioner.class);
+        job.setPartitionerClass(LogRecordPartitioner.class);
         job.setGroupingComparatorClass(SessionGroupingComparator.class);
         job.setSortComparatorClass(SessionTimeSortComparator.class);
         
@@ -50,7 +50,7 @@ public class CounterLogRecordParser extends Configured implements Tool {
     }
 
     public static void main(String[] args) throws Exception {
-        int exitCode = ToolRunner.run(new CounterLogRecordParser(), args);
+        int exitCode = ToolRunner.run(new LogRecordParser(), args);
         System.out.println("All done");
         System.exit(exitCode);
     }

@@ -1,4 +1,4 @@
-package com.zhimingchen.log.hadoop.counterusage;
+package com.zhimingchen.counter.deduplicate;
 
 import java.io.IOException;
 
@@ -8,10 +8,10 @@ import org.apache.hadoop.mrunit.mapreduce.MapDriver;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.zhimingchen.log.hadoop.counterusage.CounterLogRecordMapper;
-import com.zhimingchen.log.hadoop.parser.WritableLogRecord;
+import com.zhimingchen.counter.deduplicate.LogRecordMapper;
+import com.zhimingchen.counter.parser.WritableLogRecord;
 
-public class CounterLogRecordMapperTest {
+public class LogRecordMapperTest {
     private String logLine1 = "198.50.157.18 - - [09/Jul/2013:01:59:59 -0400] \"GET /store/10.1002/div.3783/asset/3783_ftp.pdf HTTP/1.1\" "
             + "200 38057 \"http://google.com/search\" \"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0\" "
             + "\"JSESSIONID=sessionID; utc=data\"";
@@ -35,7 +35,7 @@ public class CounterLogRecordMapperTest {
     @Test
     public void shouldMapLogRecordCorrectly() throws IOException {
         new MapDriver<LongWritable, Text, SessionTimePair, WritableLogRecord>()
-                .withMapper(new CounterLogRecordMapper())
+                .withMapper(new LogRecordMapper())
                 .withInput(new LongWritable(0L), new Text(logLine1))
                 .withInput(new LongWritable(0L), new Text(logLine2))
                 .withInput(new LongWritable(0L), new Text(logLine3))

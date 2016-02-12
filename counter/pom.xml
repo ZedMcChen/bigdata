@@ -3,20 +3,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.zhimingchen.log</groupId>
+        <groupId>com.zhimingchen.bigdata</groupId>
         <artifactId>parent</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>hadoop</artifactId>
+    <artifactId>counter</artifactId>
     <packaging>jar</packaging>
 
     <name>log analyser: hadoop</name>
 
     <dependencies>
         <dependency>
-            <groupId>com.zhimingchen.log</groupId>
-            <artifactId>parsers</artifactId>
+            <groupId>com.zhimingchen.bigdata</groupId>
+            <artifactId>logparsers</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
 
@@ -30,6 +30,12 @@
             <artifactId>commons-cli</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+        
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>

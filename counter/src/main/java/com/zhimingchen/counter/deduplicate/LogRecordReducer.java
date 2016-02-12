@@ -1,7 +1,7 @@
 /**
  * Copyright Zhiming Chen 2016
  */
-package com.zhimingchen.log.hadoop.counterusage;
+package com.zhimingchen.counter.deduplicate;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,13 +10,13 @@ import java.util.Map;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-import com.zhimingchen.log.hadoop.parser.WritableLogRecord;
+import com.zhimingchen.counter.parser.WritableLogRecord;
 
 /**
  * @author zhiming
  *
  */
-public class CounterLogRecordReducer extends Reducer<SessionTimePair, WritableLogRecord, Text, WritableLogRecord> {
+public class LogRecordReducer extends Reducer<SessionTimePair, WritableLogRecord, Text, WritableLogRecord> {
     @Override
     public void reduce(SessionTimePair stp, Iterable<WritableLogRecord> logRecords, Context context) throws IOException, InterruptedException {
         Map<String, Long> urlLastRequestTime = new HashMap<>();

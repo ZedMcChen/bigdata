@@ -1,7 +1,7 @@
 /**
  * Copyright Zhiming Chen 2016
  */
-package com.zhimingchen.log.hadoop.counterusage;
+package com.zhimingchen.counter.deduplicate;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-import com.zhimingchen.log.hadoop.parser.WritableLogRecord;
+import com.zhimingchen.counter.parser.WritableLogRecord;
 
 /**
  * @author zhiming
@@ -17,7 +17,7 @@ import com.zhimingchen.log.hadoop.parser.WritableLogRecord;
  */
 
 // map to JSESSIONID:LogRecord, or IP:LogRecord if JSESSIONID is absent.
-public class CounterLogRecordMapper extends Mapper<LongWritable, Text, SessionTimePair, WritableLogRecord> {
+public class LogRecordMapper extends Mapper<LongWritable, Text, SessionTimePair, WritableLogRecord> {
     @Override
     public void map(LongWritable key, Text logLine, Context context) throws IOException, InterruptedException {
         WritableLogRecord logRecord = WritableLogRecord.parse(logLine.toString());

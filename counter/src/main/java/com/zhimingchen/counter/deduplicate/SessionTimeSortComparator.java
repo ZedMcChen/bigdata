@@ -1,7 +1,7 @@
 /**
  * Copyright Zhiming Chen 2016
  */
-package com.zhimingchen.log.hadoop.counterusage;
+package com.zhimingchen.counter.deduplicate;
 
 import org.apache.hadoop.io.WritableComparable;
 import org.apache.hadoop.io.WritableComparator;
@@ -10,8 +10,8 @@ import org.apache.hadoop.io.WritableComparator;
  * @author zhiming
  *
  */
-public class SessionGroupingComparator extends WritableComparator {
-    protected SessionGroupingComparator() {
+public class SessionTimeSortComparator extends WritableComparator {
+    protected SessionTimeSortComparator() {
         super(SessionTimePair.class, true);
     }
     
@@ -21,6 +21,12 @@ public class SessionGroupingComparator extends WritableComparator {
         SessionTimePair stp1 = (SessionTimePair) p1;
         SessionTimePair stp2 = (SessionTimePair) p2;
         
-        return stp1.getSessionId().compareTo(stp2.getSessionId());
+        int cmp = stp1.getSessionId().compareTo(stp2.getSessionId());
+        
+        if (cmp == 0) {
+            return stp1.getEpochTime().compareTo(stp2.getEpochTime());
+        }
+        
+        return cmp;
     }
 }

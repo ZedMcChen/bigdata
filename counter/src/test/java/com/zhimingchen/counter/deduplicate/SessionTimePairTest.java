@@ -1,4 +1,4 @@
-package com.zhimingchen.log.hadoop.counterusage;
+package com.zhimingchen.counter.deduplicate;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;

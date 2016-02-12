@@ -1,7 +1,7 @@
 /**
  * Copyright Zhiming Chen 2016
  */
-package com.zhimingchen.log.hadoop.parser;
+package com.zhimingchen.counter.parser;
 
 import java.io.DataInput;
 import java.io.DataOutput;

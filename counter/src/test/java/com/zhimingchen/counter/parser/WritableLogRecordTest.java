@@ -1,4 +1,4 @@
-package com.zhimingchen.log.hadoop.parser;
+package com.zhimingchen.counter.parser;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

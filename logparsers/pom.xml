@@ -3,15 +3,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.zhimingchen.log</groupId>
+        <groupId>com.zhimingchen.bigdata</groupId>
         <artifactId>parent</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>parsers</artifactId>
+    <artifactId>logparsers</artifactId>
     <packaging>jar</packaging>
 
-    <name>log analyser: parser</name>
+    <name>big data: log parsers</name>
 
     <dependencies>
         <dependency>
@@ -37,6 +37,11 @@
 
     <build>
         <plugins>
+	        <plugin>
+    	        <groupId>org.apache.maven.plugins</groupId>
+        	    <artifactId>maven-compiler-plugin</artifactId>
+        	</plugin>
+        	
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
