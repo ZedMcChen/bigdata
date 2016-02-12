@@ -7,7 +7,7 @@ logparsers: command line tool to parse logs and obtain top hit counts.
             The tool is implemented using Java 8 streams.
             To use, create the jar file, then run the java program, as in
             $ mvn package
-            $ java -jar parsers-0.1-SNAPSHOT-jar-with-dependencies.jar
+            $ java -jar logparsers-0.1-SNAPSHOT-jar-with-dependencies.jar
          
 
 counter:    Log record deduplication based on COUNTER (http://www.projectcounter.org/)
