@@ -51,23 +51,15 @@ public class CommonCrawlMapper extends Mapper<LongWritable, WARCWritable, Text, 
         String content = new String(value.getRecord().getContent());
         Set<String> citedDois = DoiUtils.findDois(content);
         if (citedDois.size()>0) {
-            BasicDBObject page = createPage(url, citedDois);
             String urlMd5 = Md5Utils.getMD5(url);
-            String pageLocation = "pages." + urlMd5;
-            BasicDBObject dbPage = new BasicDBObject("$set", new BasicDBObject(pageLocation, page));
             for (String doi: citedDois) {
-                BasicDBObject doc = new BasicDBObject("doi", doi);
-                dbColl.update(doc, dbPage, true, false);
+                BasicDBObject doc = new BasicDBObject("doi", doi)
+                                        .append("containingUrlHash", urlMd5)
+                                        .append("containingUrl", url);
+                dbColl.save(doc);
                 context.write(new Text(doi), new IntWritable(1));
             }
         }
     }
 
-    private BasicDBObject createPage(String url, Set<String> citedDois) {
-        return new BasicDBObject("url", url)
-                .append("citedDois", citedDois);
-    }
-    private BasicDBObject createPage(String url, Set<String> citedDois, String content) {
-        return createPage(url, citedDois).append("content", content);
-    }
 }
