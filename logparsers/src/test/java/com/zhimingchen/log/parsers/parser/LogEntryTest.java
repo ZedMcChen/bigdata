@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.Test;
 
-import com.zhimingchen.log.parsers.utils.GzipFiles;
+import com.zhimingchen.common.utils.GzipFiles;
 
 public class LogEntryTest {
 

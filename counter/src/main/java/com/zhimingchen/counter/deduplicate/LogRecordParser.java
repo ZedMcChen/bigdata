@@ -14,6 +14,7 @@ import org.apache.hadoop.util.GenericOptionsParser;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+import com.zhimingchen.common.utils.CliParser;
 import com.zhimingchen.counter.parser.WritableLogRecord;
 
 /**
@@ -27,6 +28,7 @@ public class LogRecordParser extends Configured implements Tool {
         Configuration conf = getConf();
         
         args = new GenericOptionsParser(conf, args).getRemainingArgs();
+        CliParser cliParser = new CliParser(args);
         
         Job job = Job.getInstance(conf);
         job.setJobName("Counter log parser");
@@ -43,16 +45,20 @@ public class LogRecordParser extends Configured implements Tool {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(WritableLogRecord.class);
         
-        FileInputFormat.addInputPath(job, new Path(args[0]));
-        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        FileInputFormat.addInputPath(job, new Path(cliParser.getInputDir()));
+        FileOutputFormat.setOutputPath(job, new Path(cliParser.getOutputDir()));
         
         return job.waitForCompletion(true) ? 0 : 1;
     }
 
     public static void main(String[] args) throws Exception {
-        int exitCode = ToolRunner.run(new LogRecordParser(), args);
-        System.out.println("All done");
-        System.exit(exitCode);
+        try {
+            int exitCode = ToolRunner.run(new LogRecordParser(), args);
+            System.out.println("All done");
+            System.exit(exitCode);
+        } catch (IllegalArgumentException e) {
+            System.exit(-1);
+        }
     }
 
 }

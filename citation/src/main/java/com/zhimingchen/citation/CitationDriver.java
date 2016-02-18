@@ -16,6 +16,7 @@ import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
 import com.martinkl.warc.mapreduce.WARCInputFormat;
+import com.zhimingchen.common.utils.CliParser;
 
 /**
  * @author zhiming
@@ -27,6 +28,8 @@ public class CitationDriver extends Configured implements Tool {
     public int run(String[] args) throws Exception {
         Configuration conf = getConf();
         args = new GenericOptionsParser(conf, args).getRemainingArgs();
+        
+        CliParser cliParser = new CliParser(args);
         
         conf.set("db.host", "localhost");
         conf.set("db.port", "27017");
@@ -46,16 +49,21 @@ public class CitationDriver extends Configured implements Tool {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
  
-        FileInputFormat.addInputPath(job, new Path(args[0]));
-        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        FileInputFormat.addInputPath(job, new Path(cliParser.getInputDir()));
+        FileOutputFormat.setOutputPath(job, new Path(cliParser.getOutputDir()));
         
         return job.waitForCompletion(true) ? 0: 1;
     }
 
     public static void main(String[] args) throws Exception {
-        int exitCode = ToolRunner.run(new CitationDriver(), args);
-        System.out.println("All Done");
-        System.exit(exitCode);
+        try {
+            int exitCode = ToolRunner.run(new CitationDriver(), args);
+            System.out.println("All Done");
+            System.exit(exitCode);
+        } catch (IllegalArgumentException e) {
+            System.exit(-1);
+        }
+        
     }
 
 }

@@ -1,6 +1,8 @@
-package com.zhimingchen.log.parsers.utils;
+package com.zhimingchen.common.utils;
 
 import org.junit.Test;
+
+import com.zhimingchen.common.utils.JarLocator;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;

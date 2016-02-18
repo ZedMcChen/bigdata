@@ -27,6 +27,11 @@ counter:    Log record deduplication based on COUNTER (http://www.projectcounter
 	    Epoch time is used for sorting to cater for distributed web servers and other
 	    time changes such as summer times.
 	    
+	    To use, do the following:
+	    
+	    $ mvn package
+	    $ java -jar target/counter-0.1-SNAPSHOT-jar-with-dependencies.jar 
+	    
 	    
 citation:   A tool that parses Common Crawl data set (https://commoncrawl.org/) to 
             extract citation data. 
@@ -49,6 +54,13 @@ citation:   A tool that parses Common Crawl data set (https://commoncrawl.org/) 
 	    In a production environment, the connector should be retrieved through, 
 	    e.g. JNDI or Spring framework.
 	    
-	    
+	    URLs contain characters (e.g. dot (.)) that render them not suitable for
+	    use as MongoDB keys. In the demo, MD5 hash values of URLs are used instead.
  
+	    To use, do the following:
+	    
+	    $ mvn package
+	    $ java -jar target/citation-0.1-SNAPSHOT-jar-with-dependencies.jar 
+	    
+	    
 

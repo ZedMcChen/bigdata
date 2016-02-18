@@ -1,4 +1,4 @@
-package com.zhimingchen.log.parsers.utils;
+package com.zhimingchen.common.utils;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.is;
@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
+
+import com.zhimingchen.common.utils.GzipFiles;
 
 public class GzipFilesTest {
     

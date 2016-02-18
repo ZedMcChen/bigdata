@@ -15,6 +15,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.zhimingchen.bigdata</groupId>
+            <artifactId>common</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>

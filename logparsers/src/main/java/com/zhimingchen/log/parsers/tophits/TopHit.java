@@ -10,10 +10,10 @@ import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import com.zhimingchen.common.utils.GzipFiles;
 import com.zhimingchen.log.parsers.parser.LogEntry;
 import com.zhimingchen.log.parsers.parser.LogRecord;
 import com.zhimingchen.log.parsers.utils.CliParser;
-import com.zhimingchen.log.parsers.utils.GzipFiles;
 import com.zhimingchen.log.parsers.utils.HitDimension;
 
 import static java.util.stream.Collectors.counting;
@@ -75,7 +75,7 @@ public class TopHit {
                 topHits.forEach(e -> System.out.println(e.getValue() + ":\t" + e.getKey()));
             }
         } catch (IllegalArgumentException e) {
-
+            System.exit(-1);
         }
     }
 
