@@ -18,7 +18,7 @@
 </div>
 
 <div id="urlList">
-<p>${fn:length(citations)} citation(s) found for DOI: ${doi}</p>
+<p class="legend">${fn:length(citations)} citation(s) found for DOI: ${doi}</p>
 <c:if test="${not empty citations}">
     <ul>
     <c:forEach var="citation" items="${citations}">

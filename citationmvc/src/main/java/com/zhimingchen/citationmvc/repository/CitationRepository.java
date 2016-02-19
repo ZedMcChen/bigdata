@@ -14,8 +14,7 @@ import com.zhimingchen.citationmvc.model.Citation;
  * @author zhiming
  *
  */
-@Repository
-public interface CitationRepository extends MongoRepository<Citation, String>{
+public interface CitationRepository extends MongoRepository<Citation, String>, CitationOperations {
     List<Citation> findByDoi(String doi);
     List<Citation> findByUrlHash(String urlHash);
     List<Citation> findByUrl(String url);

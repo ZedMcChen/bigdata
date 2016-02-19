@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.zhimingchen.citationmvc.model.Citation;
+import com.zhimingchen.citationmvc.model.CitationCount;
 import com.zhimingchen.citationmvc.repository.CitationRepository;
 
 /**
@@ -27,7 +28,10 @@ public class CitationController {
     private CitationRepository citationRepository;
     
     @RequestMapping(value={"/", "/home"}, method=RequestMethod.GET)
-    public String homePage() {
+    public String homePage(Model model) {
+        List<CitationCount> citationCounts = citationRepository.findTopCitedDois();
+        model.addAttribute("citationCounts", citationCounts);
+System.out.println("size: " + citationCounts.size());
         return "home";
     }
 
