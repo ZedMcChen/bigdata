@@ -6,6 +6,7 @@ package com.zhimingchen.citation;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.hadoop.io.Writable;
@@ -47,8 +48,9 @@ public class Page implements Writable {
         return this.citedDois;
     }
 
-    public void setCitedDois(Set<String> sitedDois) {
-        this.citedDois = citedDois;
+    public void setCitedDois(Set<String> citedDois) {
+        this.citedDois = new HashSet<>();
+        this.citedDois.addAll(citedDois);
     }
 
     @Override
@@ -68,6 +70,10 @@ public class Page implements Writable {
         this.url = in.readUTF();
         this.content = in.readUTF();
         int sz = in.readInt();
-        
+        this.citedDois = new HashSet<String>();
+        for (int i=0; i<sz; i++) {
+            String doi = in.readUTF();
+            this.citedDois.add(doi);
+        }
     }
 }

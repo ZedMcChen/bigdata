@@ -33,9 +33,9 @@ public class LogRecordReducerTest {
     public void shouldReduceLogRecordCorrectly() throws IOException {
         new ReduceDriver<SessionTimePair, WritableLogRecord, Text, WritableLogRecord>()
                 .withReducer(new LogRecordReducer())
-                .withInput(new SessionTimePair(logRecord1.getCookie("JSESSIONID"), logRecord1.getEpochSeconds()), Arrays.asList(WritableLogRecord.parse(logLine1), WritableLogRecord.parse(logLine2)))
-                .withOutput(new Text("sessionID"), WritableLogRecord.parse(logLine1))
-                .withOutput(new Text("sessionID"), WritableLogRecord.parse(logLine2))
+                .withInput(new SessionTimePair(logRecord1.getCookie("JSESSIONID"), logRecord1.getEpochSeconds()), Arrays.asList(logRecord1, logRecord2))
+                .withOutput(new Text("sessionID"), logRecord1)
+                .withOutput(new Text("sessionID"), logRecord2)
                 .runTest();
     }
 }

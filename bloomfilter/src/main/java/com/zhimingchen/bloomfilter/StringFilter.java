@@ -3,8 +3,6 @@
  */
 package com.zhimingchen.bloomfilter;
 
-import java.io.IOException;
-
 import org.apache.hadoop.util.bloom.BloomFilter;
 import org.apache.hadoop.util.bloom.Key;
 import org.apache.hadoop.util.hash.Hash;
