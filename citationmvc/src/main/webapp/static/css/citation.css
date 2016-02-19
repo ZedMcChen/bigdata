@@ -1,17 +1,20 @@
 #pageBody {
     font-family:Courier;
     color: #112233; 
-    background-color: #ccddff
 }
 
-#greetingMsg {
-    display: inline-block;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+#doiList {
+	position: relative;
+	top: 2em;
 }
 
+.legend {
+    font-size: 120%
+}
+
+.value {
+	text-align: right;
+}
 #langNav {
     float: right;
     font-size: 70%
@@ -26,22 +29,3 @@
     transform: translate(-50%, -40%);
 }
 
-.signInForm .legend {
-    height: 3em
-}
-
-.signInForm .field { padding: 0em; margin:0em; height: 3.5em}
-
-.signInForm .field label { display:inline-block; width:10em; margin-left:0em; }
-
-.signInForm .field input { display:inline-block; }
-
-#submitBtn {
-    position: relative; 
-    top: 1em
-}
-
-.error {
-     display: block;
-     color: red
-}

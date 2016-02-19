@@ -31,12 +31,12 @@ public class CitationController {
     public String homePage(Model model) {
         List<CitationCount> citationCounts = citationRepository.findTopCitedDois();
         model.addAttribute("citationCounts", citationCounts);
-System.out.println("size: " + citationCounts.size());
         return "home";
     }
 
     @RequestMapping(value="/doi", method=RequestMethod.POST)
     public String extractDoi(@RequestParam("doi") String doi, Model model) {
+        doi = doi.trim();
         List<Citation> citations = citationRepository.findByDoi(doi);
         model.addAttribute("doi", doi);
         model.addAttribute("citations", citations);
