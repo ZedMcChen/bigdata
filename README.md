@@ -63,4 +63,16 @@ citation:   A tool that parses Common Crawl data set (https://commoncrawl.org/) 
 	    $ java -jar target/citation-0.1-SNAPSHOT-jar-with-dependencies.jar 
 	    
 	    
+citationmvc:A Spring MVC based web app to display the results generated in project citation. 
+
+            The connector to the MongoDB backend is achieved through spring-data-mongodb
+	    package. The test, CitationRepositoryTest, clear the collection during setup, so
+	    it must be run against a development DB. This can be achieved through Spring's
+	    profiles.
+	    
+	    Though Spring generates most of the CRUD operation codes for querying MongoDB,
+	    aggregating on the MongoDB for the most cited DOIs is not one of them. A custom
+	    function, findTopCitedDois(), is thus implemented in CitationRepositoryImpl.
+	    
+	    
 
