@@ -9,7 +9,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,18 +23,22 @@ import com.zhimingchen.citationmvc.repository.CitationRepository;
  */
 @Controller
 public class CitationController {
-    @Autowired
     private CitationRepository citationRepository;
+    
+    @Autowired
+    public CitationController(CitationRepository citationRepository) {
+        this.citationRepository = citationRepository;
+    }
     
     @RequestMapping(value={"/", "/home"}, method=RequestMethod.GET)
     public String homePage(Model model) {
         List<CitationCount> citationCounts = citationRepository.findTopCitedDois();
         model.addAttribute("citationCounts", citationCounts);
-        return "home";
+        return "homePage";
     }
 
     @RequestMapping(value="/doi", method=RequestMethod.POST)
-    public String extractDoi(@RequestParam("doi") String doi, Model model) {
+    public String displayDoiCitation(@RequestParam("doi") String doi, Model model) {
         doi = doi.trim();
         List<Citation> citations = citationRepository.findByDoi(doi);
         model.addAttribute("doi", doi);

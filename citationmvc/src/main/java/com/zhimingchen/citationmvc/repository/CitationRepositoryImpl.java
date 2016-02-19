@@ -10,10 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
-import org.springframework.data.mongodb.core.query.Criteria;
-
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 import com.zhimingchen.citationmvc.model.Citation;
 import com.zhimingchen.citationmvc.model.CitationCount;
 
